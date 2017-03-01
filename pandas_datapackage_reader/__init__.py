@@ -103,3 +103,7 @@ def read_datapackage(url_or_path, resource_name=None):
         return list(data_frames.values())[0]
     else:
         return data_frames
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
