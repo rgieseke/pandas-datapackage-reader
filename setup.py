@@ -1,6 +1,8 @@
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+import versioneer
+
 
 class PyTest(TestCommand):
 
@@ -14,9 +16,12 @@ class PyTest(TestCommand):
         sys.exit(pytest.main(self.test_args))
 
 
+cmdclass=versioneer.get_cmdclass()
+cmdclass.update({"test": PyTest})
+
 setup(
     name='pandas-datapackage-reader',
-    version="0.1",
+    version=version=versioneer.get_version(),
     description='Pandas Data Package Reader',
     long_description=__doc__,
     url='https://github.com/rgieseke/pandas-datapackage-reader',
@@ -34,6 +39,7 @@ setup(
         'Programming Language :: Python :: 3.6'
     ],
     keywords=['data-package'],
+    cmdclass=cmdclass
     packages=['pandas_datapackage_reader'],
     install_requires=['pandas', 'requests'],
     tests_require=['pytest'],

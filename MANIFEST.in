@@ -1,0 +1,2 @@
+include versioneer.py
+include pandas_datapackage_reader/_version.py
