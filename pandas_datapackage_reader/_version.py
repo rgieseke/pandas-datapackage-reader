@@ -41,7 +41,7 @@ def get_config():
     cfg = VersioneerConfig()
     cfg.VCS = "git"
     cfg.style = "pep440"
-    cfg.tag_prefix = ""
+    cfg.tag_prefix = "v"
     cfg.parentdir_prefix = "pandas_datapackage_reader-"
     cfg.versionfile_source = "pandas_datapackage_reader/_version.py"
     cfg.verbose = False
