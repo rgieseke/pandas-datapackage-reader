@@ -1,0 +1,41 @@
+from setuptools import setup
+from setuptools.command.test import test as TestCommand
+
+
+class PyTest(TestCommand):
+
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        import pytest
+        sys.exit(pytest.main(self.test_args))
+
+
+setup(
+    name='pandas_datapackage_reader',
+    version="0.1",
+    description='Pandas Data Package Reader',
+    long_description=__doc__,
+    url='https://github.com/rgieseke/pandas-datapackage-reader',
+    author='Robert Gieseke',
+    author_email='robert.gieseke@pik-potsdam.de',
+    license='BSD',
+    platforms='any',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6'
+    ],
+    keywords=['data-package'],
+    packages=['pandas_datapackage_reader'],
+    install_requires=['pandas', 'requests'],
+    tests_require=['pytest'],
+    setup_requires=['pytest-runner']
+)
