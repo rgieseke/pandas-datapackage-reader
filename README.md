@@ -20,4 +20,4 @@ country_codes = read_datapackage("country-codes")
 
 ## License
 
-BSD-2-Clause, see [LICENSE]
+BSD-2-Clause, see [LICENSE](LICENSE)
