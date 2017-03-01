@@ -1,5 +1,14 @@
 # encoding: UTF-8
 
+"""
+pandas-datapackage-reader
+-------------------------
+
+Easy loading of tabular data from Data Packages into Pandas DataFrames.
+
+See README.md and repository for details: https://github.com/rgieseke/pandas-datapackage-reader
+"""
+
 import json
 import os
 
