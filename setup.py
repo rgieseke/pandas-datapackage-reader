@@ -15,7 +15,7 @@ class PyTest(TestCommand):
 
 
 setup(
-    name='pandas_datapackage_reader',
+    name='pandas-datapackage-reader',
     version="0.1",
     description='Pandas Data Package Reader',
     long_description=__doc__,
