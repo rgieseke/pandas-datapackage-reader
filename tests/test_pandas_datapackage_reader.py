@@ -17,6 +17,19 @@ def test_local_package():
     assert "data" in dp.keys()
 
 
+def test_load_single_resource():
+    df = pd.read_csv(os.path.join(path, "test-package/moredata.csv"))
+    moredata = read_datapackage(os.path.join(path, "test-package"), "moredata")
+    assert df.equals(moredata)
+
+
+def test_load_multiple_resources():
+    dp = read_datapackage(os.path.join(path, "test-package"),
+                          ["data", "moredata"])
+    assert "data" in dp.keys()
+    assert "moredata" in dp.keys()
+
+
 def test_remote_package():
     url = ("https://raw.githubusercontent.com/datasets/"
            "country-codes/master/datapackage.json")
