@@ -72,7 +72,6 @@ def read_datapackage(url_or_path, resource_name=None):
             name = str(idx)
 
         index_col = None
-        converters = {}
         parse_dates = []
 
         int_columns = []
@@ -97,7 +96,6 @@ def read_datapackage(url_or_path, resource_name=None):
         df = pd.read_csv(
             csv_path,
             index_col=index_col,
-            converters=converters,
             parse_dates=parse_dates
         )
         # Convert integer columns with missing values to type 'object'
