@@ -6,7 +6,8 @@ pandas-datapackage-reader
 
 Easy loading of tabular data from Data Packages into Pandas DataFrames.
 
-See README.md and repository for details: https://github.com/rgieseke/pandas-datapackage-reader
+See README.md and repository for details:
+  https://github.com/rgieseke/pandas-datapackage-reader
 """
 
 import json
@@ -14,6 +15,10 @@ import os
 
 import requests
 import pandas as pd
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
 
 
 def read_datapackage(url_or_path, resource_name=None):
@@ -109,7 +114,3 @@ def read_datapackage(url_or_path, resource_name=None):
         return list(data_frames.values())[0]
     else:
         return data_frames
-
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
