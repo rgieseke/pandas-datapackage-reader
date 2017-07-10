@@ -43,3 +43,9 @@ def test_github_url():
     dp = read_datapackage(url)
     print(dp)
     assert isinstance(dp, pd.DataFrame)
+
+def test_github_url_with_trailing_slash():
+    url = "https://github.com/datasets/country-codes/"
+    dp = read_datapackage(url)
+    print(dp)
+    assert isinstance(dp, pd.DataFrame)
