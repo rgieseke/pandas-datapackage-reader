@@ -1,8 +1,8 @@
 publish-on-pypi:
 	@status=$$(git status --porcelain); \
 	if test "x$${status}" = x; then \
-		python setup.py bdist_wheel --universal
-		twine upload dist/*
+		python setup.py bdist_wheel --universal; \
+		twine upload dist/*; \
 	else \
 		echo Working directory is dirty >&2; \
 	fi;
