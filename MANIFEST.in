@@ -2,5 +2,5 @@ include README.md
 include LICENSE
 include versioneer.py
 include pandas_datapackage_reader/_version.py
-include tests/test-package *.csv
-include tests/test-package *.json
+include tests/test-package/*.csv
+include tests/test-package/*.json
