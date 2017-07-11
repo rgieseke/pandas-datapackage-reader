@@ -47,9 +47,12 @@ def read_datapackage(url_or_path, resource_name=None):
 
     """
     if url_or_path.startswith("https://github.com/"):
+        username_project = url_or_path.split("https://github.com/")[1]
+        if username_project.endswith("/"):
+            username_project = username_project[:-1]
         url_or_path = "https://raw.githubusercontent.com/" + \
-                       url_or_path.split("https://github.com/")[1] +\
-                       "/master/datapackage.json"
+                      username_project + \
+                      "/master/datapackage.json"
     elif not url_or_path.endswith("datapackage.json"):
         url_or_path = os.path.join(url_or_path, "datapackage.json")
 
