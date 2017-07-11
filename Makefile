@@ -14,5 +14,11 @@ test-pypi-install:
 	$(TEMPVENV)/bin/pip install pandas_datapackage_reader
 	$(TEMPVENV)/bin/python -c "import sys; sys.path.remove(''); import pandas_datapackage_reader as pdr; print(pdr.__version__)"
 
-.PHONY: publish-on-pypi test-pypi-install
+venv:
+	[ -d ./venv ] || python3 -m venv venv
+	./venv/bin/pip install --upgrade pip
+	./venv/bin/pip install pytest ipython
+	./venv/bin/pip install -e .
+
+.PHONY: publish-on-pypi test-pypi-install venv
 
