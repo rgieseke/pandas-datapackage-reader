@@ -1,6 +1,11 @@
 publish-on-pypi:
-	python setup.py register -r https://pypi.python.org/pypi
-	python setup.py sdist upload -r https://pypi.python.org/pypi
+	@status=$$(git status --porcelain); \
+	if test "x$${status}" = x; then \
+		python setup.py bdist_wheel --universal
+		twine upload dist/*
+	else \
+		echo Working directory is dirty >&2; \
+	fi;
 
 test-pypi-install:
 	$(eval TEMPVENV := $(shell mktemp -d))
@@ -9,5 +14,5 @@ test-pypi-install:
 	$(TEMPVENV)/bin/pip install pandas_datapackage_reader
 	$(TEMPVENV)/bin/python -c "import sys; sys.path.remove(''); import pandas_datapackage_reader as pdr; print(pdr.__version__)"
 
-.PHONY: publish-on-pypi test-pypi-install publish-on-testpypi test-testpypi-install
+.PHONY: publish-on-pypi test-pypi-install
 
