@@ -1,8 +1,8 @@
 publish-on-pypi:
 	@status=$$(git status --porcelain); \
 	if test "x$${status}" = x; then \
-		python setup.py bdist_wheel --universal; \
-		twine upload dist/*; \
+		./venv/bin/python setup.py bdist_wheel --universal; \
+		./venv/bin/twine upload dist/*; \
 	else \
 		echo Working directory is dirty >&2; \
 	fi;
@@ -17,7 +17,7 @@ test-pypi-install:
 venv:
 	[ -d ./venv ] || python3 -m venv venv
 	./venv/bin/pip install --upgrade pip
-	./venv/bin/pip install pytest ipython
+	./venv/bin/pip install pytest ipython twine
 	./venv/bin/pip install -e .
 
 .PHONY: publish-on-pypi test-pypi-install venv
