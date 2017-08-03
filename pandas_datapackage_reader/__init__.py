@@ -106,6 +106,11 @@ def read_datapackage(url_or_path, resource_name=None):
             index_col=index_col,
             parse_dates=parse_dates
         )
+
+        # Add resource description as a new attribute. This won't survive
+        # methods returning new DataFrames  but can be useful nonetheless.
+        df.metadata = resource
+
         # Convert integer columns with missing values to type 'object'
         for int_col in int_columns:
             if df[int_col].isnull().sum() > 0:

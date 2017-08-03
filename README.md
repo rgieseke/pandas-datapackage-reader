@@ -16,6 +16,9 @@ country_codes = read_datapackage("https://github.com/datasets/country-codes")
 
 # From local directory
 country_codes = read_datapackage("country-codes")
+
+# Resource metadata is stored in a `metadata` attribute
+print(country_codes.metadata)
 ```
 
 ## License
