@@ -17,7 +17,7 @@ test-pypi-install:
 venv:
 	[ -d ./venv ] || python3 -m venv venv
 	./venv/bin/pip install --upgrade pip
-	./venv/bin/pip install pytest ipython twine
+	./venv/bin/pip install pytest ipython twine wheel
 	./venv/bin/pip install -e .
 
 .PHONY: publish-on-pypi test-pypi-install venv
