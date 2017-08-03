@@ -1,8 +1,8 @@
 import os
-
 import pandas as pd
 
 from pandas_datapackage_reader import read_datapackage
+from pathlib import Path
 
 
 path = os.path.dirname(__file__)
@@ -44,8 +44,14 @@ def test_github_url():
     print(dp)
     assert isinstance(dp, pd.DataFrame)
 
+
 def test_github_url_with_trailing_slash():
     url = "https://github.com/datasets/country-codes/"
     dp = read_datapackage(url)
     print(dp)
     assert isinstance(dp, pd.DataFrame)
+
+def test_pathlib_posixpath():
+    path = Path(__file__).parents[0]
+    dp = read_datapackage(path / "test-package")
+    assert "data" in dp.keys()

@@ -46,6 +46,7 @@ def read_datapackage(url_or_path, resource_name=None):
         argument for more information on when a Dict of Dataframes is returned.
 
     """
+    url_or_path = str(url_or_path)  # Allows using PosixPath
     if url_or_path.startswith("https://github.com/"):
         username_project = url_or_path.split("https://github.com/")[1]
         if username_project.endswith("/"):
