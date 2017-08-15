@@ -1,4 +1,5 @@
 publish-on-pypi:
+	@rm -rf build dist
 	@status=$$(git status --porcelain); \
 	if test "x$${status}" = x; then \
 		./venv/bin/python setup.py bdist_wheel --universal; \
