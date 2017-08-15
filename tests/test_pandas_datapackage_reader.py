@@ -9,7 +9,11 @@ path = os.path.dirname(__file__)
 
 
 def test_local_package():
-    df = pd.read_csv(os.path.join(path, "test-package/data.csv"))
+    df = pd.read_csv(
+        os.path.join(path, "test-package/data.csv"),
+        na_filter=False,
+        index_col="id"
+    )
     dp = read_datapackage(os.path.join(path, "test-package"))
     assert df.equals(dp["data"])
     assert isinstance(dp, dict)
@@ -51,7 +55,19 @@ def test_github_url_with_trailing_slash():
     print(dp)
     assert isinstance(dp, pd.DataFrame)
 
+
 def test_pathlib_posixpath():
     path = Path(__file__).parents[0]
     dp = read_datapackage(path / "test-package")
     assert "data" in dp.keys()
+
+
+def test_ignore_missing_values():
+    df = read_datapackage(os.path.join(path, "test-package"), "data")
+    assert df.loc["c"].value == "NA"
+
+
+def test_missing_integer_values():
+    df = read_datapackage(os.path.join(path, "test-package"), "data")
+    assert df.loc["b"].intvalue == ""
+    assert df["intvalue"].dtype == pd.np.dtype("O")

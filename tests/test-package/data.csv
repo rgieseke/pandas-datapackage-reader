@@ -1,2 +1,4 @@
-a,1.23
-b,3.33
+id,intvalue,value
+a,0,1.23
+b,,3.33
+c,2,NA

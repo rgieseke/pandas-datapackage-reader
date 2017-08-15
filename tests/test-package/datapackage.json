@@ -9,13 +9,18 @@
                 "fields": [
                     {
                         "name": "id",
+                        "type": "str"
+                    },
+                    {
+                        "name": "intvalue",
                         "type": "integer"
                     },
                     {
                         "name": "value",
-                        "type": "number"
+                        "type": "str"
                     }
-                ]
+                ],
+                "primaryKey": "id"
             }
         },
         {
@@ -26,7 +31,7 @@
                 "fields": [
                     {
                         "name": "id",
-                        "type": "integer"
+                        "type": "str"
                     },
                     {
                         "name": "value",
