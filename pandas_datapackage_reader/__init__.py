@@ -106,7 +106,9 @@ def read_datapackage(url_or_path, resource_name=None):
             csv_path,
             index_col=index_col,
             parse_dates=parse_dates,
-            na_filter=False
+            na_filter=True,
+            na_values="",
+            keep_default_na=False
         )
 
         # Add resource description as a new attribute. This won't survive

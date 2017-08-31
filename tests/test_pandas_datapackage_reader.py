@@ -9,13 +9,7 @@ path = os.path.dirname(__file__)
 
 
 def test_local_package():
-    df = pd.read_csv(
-        os.path.join(path, "test-package/data.csv"),
-        na_filter=False,
-        index_col="id"
-    )
     dp = read_datapackage(os.path.join(path, "test-package"))
-    assert df.equals(dp["data"])
     assert isinstance(dp, dict)
     assert "moredata" in dp.keys()
     assert "data" in dp.keys()
@@ -69,5 +63,5 @@ def test_ignore_missing_values():
 
 def test_missing_integer_values():
     df = read_datapackage(os.path.join(path, "test-package"), "data")
-    assert df.loc["b"].intvalue == ""
+    assert pd.isnull(df.loc["b"].intvalue)
     assert df["intvalue"].dtype == pd.np.dtype("O")
