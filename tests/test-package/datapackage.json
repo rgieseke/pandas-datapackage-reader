@@ -39,6 +39,35 @@
                     }
                 ]
             }
+        },
+        {
+            "name": "datetimes",
+            "path": "datetimes.csv",
+            "fomat": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "year",
+                        "type": "year"
+                    },
+                    {
+                        "name": "yearmonth",
+                        "type": "yearmonth"
+                    },
+                    {
+                        "name": "datetime",
+                        "type": "datetime"
+                    },
+                    {
+                        "name": "date",
+                        "type": "date"
+                    },
+                    {
+                        "name": "time",
+                        "type": "time"
+                    }
+                ]
+            }
         }
     ]
 }

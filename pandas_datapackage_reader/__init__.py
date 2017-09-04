@@ -96,7 +96,7 @@ def read_datapackage(url_or_path, resource_name=None):
             if column["type"] == "integer" and (index_col and column["name"]
                                                 not in index_col):
                 int_columns.append(column["name"])
-            elif column["type"] == "date":
+            elif column["type"] in ["date", "datetime"]:
                 parse_dates.append(column["name"])
 
         if len(parse_dates) == 0:
@@ -110,6 +110,7 @@ def read_datapackage(url_or_path, resource_name=None):
             na_values="",
             keep_default_na=False
         )
+
 
         # Add resource description as a new attribute. This won't survive
         # methods returning new DataFrames  but can be useful nonetheless.

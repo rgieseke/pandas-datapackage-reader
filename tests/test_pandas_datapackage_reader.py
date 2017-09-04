@@ -65,3 +65,10 @@ def test_missing_integer_values():
     df = read_datapackage(os.path.join(path, "test-package"), "data")
     assert pd.isnull(df.loc["b"].intvalue)
     assert df["intvalue"].dtype == pd.np.dtype("O")
+
+
+def test_datetimes():
+    testdate = pd.Timestamp('2017-01-01 01:23:45')
+    df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
+    assert df.date.loc[0].date() == testdate.date()
+    assert df.loc[0].datetime == testdate
