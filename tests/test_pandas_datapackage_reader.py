@@ -70,5 +70,7 @@ def test_missing_integer_values():
 def test_datetimes():
     testdate = pd.Timestamp('2017-01-01 01:23:45')
     df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
-    assert df.date.loc[0].date() == testdate.date()
-    assert df.loc[0].datetime == testdate
+    assert df["date"].loc[0].date() == testdate.date()
+    assert df["datetime"].loc[0] == testdate
+    assert df["year"].loc[0].year == testdate.year
+    assert df["yearmonth"].loc[0] == pd.Period("2017-01")

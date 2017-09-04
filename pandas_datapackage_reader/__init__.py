@@ -92,25 +92,35 @@ def read_datapackage(url_or_path, resource_name=None):
         if "primaryKey" in resource["schema"]:
             index_col = resource["schema"]["primaryKey"]
 
-        for column in resource["schema"]["fields"]:
-            if column["type"] == "integer" and (index_col and column["name"]
-                                                not in index_col):
-                int_columns.append(column["name"])
-            elif column["type"] in ["date", "datetime"]:
-                parse_dates.append(column["name"])
-
-        if len(parse_dates) == 0:
-            parse_dates = None
-
         df = pd.read_csv(
             csv_path,
             index_col=index_col,
-            parse_dates=parse_dates,
+            #parse_dates=parse_dates,
             na_filter=True,
             na_values="",
             keep_default_na=False
         )
 
+        for column in resource["schema"]["fields"]:
+            if column["type"] == "integer" and (index_col and column["name"]
+                                                not in index_col):
+                int_columns.append(column["name"])
+            elif column["type"] == "date":
+                df[column["name"]] = pd.to_datetime(df[column["name"]],
+                    format="%Y-%m-%d")
+            elif column["type"] == "datetime":
+                df[column["name"]] = pd.to_datetime(df[column["name"]],
+                    format="%Y-%m-%d %H:%M:%S")
+            elif column["type"] == "year":
+                df[column["name"]] = pd.to_datetime(df[column["name"]],
+                    format="%Y").dt.to_period("A")
+            elif column["type"] == "yearmonth":
+                df[column["name"]] = pd.to_datetime(df[column["name"]],
+                    format="%Y-%m").dt.to_period('M')
+
+
+        if len(parse_dates) == 0:
+            parse_dates = None
 
         # Add resource description as a new attribute. This won't survive
         # methods returning new DataFrames  but can be useful nonetheless.
