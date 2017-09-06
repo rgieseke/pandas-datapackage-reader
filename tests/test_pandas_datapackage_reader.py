@@ -1,9 +1,10 @@
 import os
 import pandas as pd
+import pytest
+import sys
 
 from datetime import datetime, date, time
 from pandas_datapackage_reader import read_datapackage
-from pathlib import Path
 
 
 path = os.path.dirname(__file__)
@@ -50,8 +51,9 @@ def test_github_url_with_trailing_slash():
     print(dp)
     assert isinstance(dp, pd.DataFrame)
 
-
+@pytest.mark.skipif(sys.version_info < (3, 4), reason="requires pathlib")
 def test_pathlib_posixpath():
+    from pathlib import Path
     path = Path(__file__).parents[0]
     dp = read_datapackage(path / "test-package")
     assert "data" in dp.keys()
