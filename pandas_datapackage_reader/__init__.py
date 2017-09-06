@@ -103,18 +103,19 @@ def read_datapackage(url_or_path, resource_name=None):
         )
 
         for column in resource["schema"]["fields"]:
+            format = column.get("format", None)
             if column["type"] == "integer" and (index_col and column["name"]
                                                 not in index_col):
                 int_columns.append(column["name"])
             elif column["type"] == "date":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format="%Y-%m-%d")
+                    format=format).dt.date
             elif column["type"] == "datetime":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format="%Y-%m-%d %H:%M:%S")
+                    format=format)
             elif column["type"] == "time":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format="%H:%M:%S").dt.time
+                    format=format).dt.time
             elif column["type"] == "year":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
                     format="%Y").dt.to_period("A")
