@@ -32,23 +32,23 @@ def test_load_multiple_resources():
 
 def test_remote_package():
     url = ("https://github.com/rgieseke/pandas-datapackage-reader/"
-           "raw/master/tests/test-package/datapackage.json)
+           "raw/master/tests/test-package/datapackage.json")
     dp = read_datapackage(url)
-    print(dp)
-    assert isinstance(dp, pd.DataFrame)
+    assert isinstance(dp, dict)
+    assert "moredata" in dp.keys()
+    assert isinstance(dp["moredata"], pd.DataFrame)
+    assert "data" in dp.keys()
 
 
 def test_github_url():
     url = "https://github.com/datasets/country-codes"
     dp = read_datapackage(url)
-    print(dp)
     assert isinstance(dp, pd.DataFrame)
 
 
 def test_github_url_with_trailing_slash():
     url = "https://github.com/datasets/country-codes/"
     dp = read_datapackage(url)
-    print(dp)
     assert isinstance(dp, pd.DataFrame)
 
 @pytest.mark.skipif(sys.version_info < (3, 4), reason="requires pathlib")

@@ -47,7 +47,8 @@ def read_datapackage(url_or_path, resource_name=None):
 
     """
     url_or_path = str(url_or_path)  # Allows using PosixPath
-    if url_or_path.startswith("https://github.com/"):
+    if (url_or_path.startswith("https://github.com/") and not
+        url_or_path.endswith("/datapackage.json")):
         username_project = url_or_path.split("https://github.com/")[1]
         if username_project.endswith("/"):
             username_project = username_project[:-1]
