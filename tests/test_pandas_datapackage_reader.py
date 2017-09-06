@@ -31,8 +31,8 @@ def test_load_multiple_resources():
 
 
 def test_remote_package():
-    url = ("https://raw.githubusercontent.com/datasets/"
-           "country-codes/master/datapackage.json")
+    url = ("https://github.com/rgieseke/pandas-datapackage-reader/"
+           "raw/master/tests/test-package/datapackage.json)
     dp = read_datapackage(url)
     print(dp)
     assert isinstance(dp, pd.DataFrame)
