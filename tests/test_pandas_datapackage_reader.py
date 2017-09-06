@@ -72,5 +72,6 @@ def test_datetimes():
     df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
     assert df["date"].loc[0].date() == testdate.date()
     assert df["datetime"].loc[0] == testdate
+    assert df["time"].loc[0] == testdate.time()
     assert df["year"].loc[0].year == testdate.year
     assert df["yearmonth"].loc[0] == pd.Period("2017-01")

@@ -111,6 +111,9 @@ def read_datapackage(url_or_path, resource_name=None):
             elif column["type"] == "datetime":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
                     format="%Y-%m-%d %H:%M:%S")
+            elif column["type"] == "time":
+                df[column["name"]] = pd.to_datetime(df[column["name"]],
+                    format="%H:%M:%S").dt.time
             elif column["type"] == "year":
                 df[column["name"]] = pd.to_datetime(df[column["name"]],
                     format="%Y").dt.to_period("A")
