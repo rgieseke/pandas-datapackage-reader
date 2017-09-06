@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 
+from datetime import datetime, date, time
 from pandas_datapackage_reader import read_datapackage
 from pathlib import Path
 
@@ -68,10 +69,10 @@ def test_missing_integer_values():
 
 
 def test_datetimes():
-    testdate = pd.Timestamp('2017-01-01 01:23:45')
+    # Test date/time '2017-01-01 01:23:45'
     df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
-    assert df["date"].loc[0].date() == testdate.date()
-    assert df["datetime"].loc[0] == testdate
-    assert df["time"].loc[0] == testdate.time()
-    assert df["year"].loc[0].year == testdate.year
+    assert df["date"].loc[0].date() == date(2017, 1, 1)
+    assert df["datetime"].loc[0] == datetime(2017, 1, 1, 1, 23, 45)
+    assert df["time"].loc[0] == time(1, 23, 45)
+    assert df["year"].loc[0] == pd.Period("2017")
     assert df["yearmonth"].loc[0] == pd.Period("2017-01")
