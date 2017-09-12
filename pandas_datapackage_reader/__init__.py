@@ -48,7 +48,7 @@ def read_datapackage(url_or_path, resource_name=None):
     """
     url_or_path = str(url_or_path)  # Allows using PosixPath
     if (url_or_path.startswith("https://github.com/") and not
-        url_or_path.endswith("/datapackage.json")):
+            url_or_path.endswith("/datapackage.json")):
         username_project = url_or_path.split("https://github.com/")[1]
         if username_project.endswith("/"):
             username_project = username_project[:-1]
@@ -96,7 +96,6 @@ def read_datapackage(url_or_path, resource_name=None):
         df = pd.read_csv(
             csv_path,
             index_col=index_col,
-            #parse_dates=parse_dates,
             na_filter=True,
             na_values="",
             keep_default_na=False
@@ -108,21 +107,20 @@ def read_datapackage(url_or_path, resource_name=None):
                                                 not in index_col):
                 int_columns.append(column["name"])
             elif column["type"] == "date":
-                df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format=format).dt.date
+                df[column["name"]] = pd.to_datetime(
+                    df[column["name"]], format=format).dt.date
             elif column["type"] == "datetime":
-                df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format=format)
+                df[column["name"]] = pd.to_datetime(
+                    df[column["name"]], format=format)
             elif column["type"] == "time":
-                df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format=format).dt.time
+                df[column["name"]] = pd.to_datetime(
+                    df[column["name"]], format=format).dt.time
             elif column["type"] == "year":
-                df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format="%Y").dt.to_period("A")
+                df[column["name"]] = pd.to_datetime(
+                    df[column["name"]], format="%Y").dt.to_period("A")
             elif column["type"] == "yearmonth":
-                df[column["name"]] = pd.to_datetime(df[column["name"]],
-                    format="%Y-%m").dt.to_period('M')
-
+                df[column["name"]] = pd.to_datetime(
+                    df[column["name"]], format="%Y-%m").dt.to_period('M')
 
         if len(parse_dates) == 0:
             parse_dates = None
