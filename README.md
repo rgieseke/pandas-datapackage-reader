@@ -1,5 +1,6 @@
 [![PyPI](https://img.shields.io/pypi/v/pandas-datapackage-reader.svg)](https://pypi.python.org/pypi/pandas-datapackage-reader/)
 [![Travis](https://img.shields.io/travis/rgieseke/pandas-datapackage-reader.svg)](https://travis-ci.org/rgieseke/pandas-datapackage-reader)
+[![Codecov](https://img.shields.io/codecov/c/github/rgieseke/pandas-datapackage-reader.svg)](https://codecov.io/gh/rgieseke/pandas-datapackage-reader)
 
 # pandas-datapackage-reader
 
