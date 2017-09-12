@@ -82,7 +82,6 @@ def read_datapackage(url_or_path, resource_name=None):
             name = str(idx)
 
         index_col = None
-        parse_dates = []
 
         int_columns = []
 
@@ -121,9 +120,6 @@ def read_datapackage(url_or_path, resource_name=None):
             elif column["type"] == "yearmonth":
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format="%Y-%m").dt.to_period('M')
-
-        if len(parse_dates) == 0:
-            parse_dates = None
 
         # Add resource description as a new attribute. This won't survive
         # methods returning new DataFrames  but can be useful nonetheless.
