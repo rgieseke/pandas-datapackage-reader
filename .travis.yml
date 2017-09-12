@@ -4,9 +4,9 @@ python:
   - "3.6"
 before_install:
   - pip install pytest pytest-cov
-  - pip install coveralls
+  - pip install codecov coveralls
 install:
   - pip install .
-script: pytest
+script: pytest --cov=pandas_datapackage_reader
 after_success:
-  - coveralls
+  - codecov
