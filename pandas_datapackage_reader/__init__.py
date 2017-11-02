@@ -121,10 +121,6 @@ def read_datapackage(url_or_path, resource_name=None):
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format="%Y-%m").dt.to_period('M')
 
-        # Add resource description as a new attribute. This won't survive
-        # methods returning new DataFrames  but can be useful nonetheless.
-        df.metadata = resource
-
         # Convert integer columns with missing values to type 'object'
         for int_col in int_columns:
             if df[int_col].isnull().sum() > 0:
