@@ -62,6 +62,8 @@ def read_datapackage(url_or_path, resource_name=None):
         r = requests.get(url_or_path)
         if r.status_code == 200:
             metadata = json.loads(r.text)
+        else:
+            r.raise_for_status()
     else:
         with open(url_or_path, "r") as f:
             metadata = json.load(f)

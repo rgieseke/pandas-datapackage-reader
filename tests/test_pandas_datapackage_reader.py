@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import pytest
+import requests
 import sys
 
 from datetime import datetime, date, time
@@ -38,6 +39,11 @@ def test_remote_package():
     assert "moredata" in dp.keys()
     assert isinstance(dp["moredata"], pd.DataFrame)
     assert "data" in dp.keys()
+
+
+def test_not_existing_remote_package():
+    with pytest.raises(requests.exceptions.HTTPError):
+        dp = read_datapackage("http://www.example.com")
 
 
 def test_github_url():
