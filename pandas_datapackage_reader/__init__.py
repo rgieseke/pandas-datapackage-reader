@@ -63,7 +63,8 @@ def read_datapackage(url_or_path, resource_name=None):
         if r.status_code == 200:
             metadata = json.loads(r.text)
     else:
-        metadata = json.load(open(url_or_path, "r"))
+        with open(url_or_path, "r") as f:
+            metadata = json.load(f)
 
     if type(resource_name) is str:
         resource_name = [resource_name]
