@@ -71,8 +71,17 @@ def test_ignore_missing_values():
 
 
 def test_missing_integer_values():
-    df = read_datapackage(os.path.join(path, "test-package"), "data")
-    assert pd.isnull(df.loc["b"].intvalue)
+    df_wo_index = read_datapackage(
+        os.path.join(path, "test-package"),
+        "datawithoutindex"
+    )
+    assert pd.isnull(df_wo_index.iloc[1].intvalue)
+    assert df_wo_index["intvalue"].dtype == pd.np.dtype("O")
+
+
+def test_missing_integer_values_with_index():
+    df = read_datapackage(os.path.join(path, "test-package"), "datawithindex")
+    assert pd.isnull(df.loc[2].intvalue)
     assert df["intvalue"].dtype == pd.np.dtype("O")
 
 

@@ -24,6 +24,41 @@
             }
         },
         {
+            "name": "datawithoutindex",
+            "path": "datawithints.csv",
+            "format": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "intid",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "intvalue",
+                        "type": "integer"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "datawithindex",
+            "path": "datawithints.csv",
+            "format": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "intid",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "intvalue",
+                        "type": "integer"
+                    }
+                ],
+                "primaryKey": "intid"
+            }
+        },
+        {
             "name": "moredata",
             "path": "moredata.csv",
             "format": "csv",

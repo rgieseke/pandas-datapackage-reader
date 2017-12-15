@@ -105,8 +105,7 @@ def read_datapackage(url_or_path, resource_name=None):
 
         for column in resource["schema"]["fields"]:
             format = column.get("format", None)
-            if column["type"] == "integer" and (index_col and column["name"]
-                                                not in index_col):
+            if column["type"] == "integer":
                 int_columns.append(column["name"])
             elif column["type"] == "date":
                 df[column["name"]] = pd.to_datetime(
@@ -126,7 +125,7 @@ def read_datapackage(url_or_path, resource_name=None):
 
         # Convert integer columns with missing values to type 'object'
         for int_col in int_columns:
-            if df[int_col].isnull().sum() > 0:
+            if int_col in df.columns and df[int_col].isnull().sum() > 0:
                 df[int_col] = df[int_col].astype(object)
 
         data_frames[name] = df
