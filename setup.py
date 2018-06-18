@@ -11,12 +11,16 @@ Install using ::
 See README.md and repository for details: <https://github.com/rgieseke/pandas-datapackage-reader>
 """
 
+import os
 import sys
 
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 import versioneer
+
+
+path = os.path.abspath(os.path.dirname(__file__))
 
 
 class PyTest(TestCommand):
@@ -44,7 +48,7 @@ setup(
     version=versioneer.get_version(),
     description='Pandas Data Package Reader',
     long_description=readme,
-    long_description_content_type="test/markdown"
+    long_description_content_type="test/markdown",
     url='https://github.com/rgieseke/pandas-datapackage-reader',
     author='Robert Gieseke',
     author_email='robert.gieseke@pik-potsdam.de',
