@@ -48,7 +48,7 @@ setup(
     version=versioneer.get_version(),
     description='Pandas Data Package Reader',
     long_description=readme,
-    long_description_content_type="test/markdown",
+    long_description_content_type="text/markdown",
     url='https://github.com/rgieseke/pandas-datapackage-reader',
     author='Robert Gieseke',
     author_email='robert.gieseke@pik-potsdam.de',
