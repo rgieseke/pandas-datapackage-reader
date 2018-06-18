@@ -103,6 +103,10 @@ def read_datapackage(url_or_path, resource_name=None):
             keep_default_na=False
         )
 
+        # Add resource description as a `_metadata` attribute. This won't
+        # survive methods returning new DataFrames but can be useful.
+        df._metadata = resource
+
         for column in resource["schema"]["fields"]:
             format = column.get("format", None)
             if column["type"] == "integer":

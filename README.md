@@ -23,6 +23,30 @@ country_codes = read_datapackage("country-codes")
 
 ```
 
+Resource metadata from the Data Package is returned as a dictionary in the
+`_metadata` attribute.
+
+```python
+country_codes._metadata
+```
+
+contains
+
+```
+{'format': 'csv',
+  'name': 'country-codes',
+  'path': 'data/country-codes.csv',
+  'schema': {'fields': [{'description': 'Country or Area official Arabic short name from UN Statistics Divsion',
+        'name': 'official_name_ar',
+        'title': 'official name Arabic',
+        'type': 'string'},
+      {'description': 'Country or Area official Chinese short name from UN Statistics Divsion',
+        'name': 'official_name_cn',
+        'title': 'official name Chinese',
+        'type': 'string'},
+# ...
+```
+
 ## License
 
 BSD-2-Clause, see [LICENSE](LICENSE)
