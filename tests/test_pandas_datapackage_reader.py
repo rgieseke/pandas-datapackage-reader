@@ -95,3 +95,8 @@ def test_datetimes():
     assert df["yearmonth"].loc[0] == pd.Period("2017-01")
     assert df["yearmonth"].loc[0] == pd.Period("2017-01")
     assert df["dayfirstdate"].loc[0] == date(2017, 12, 13)
+
+
+def test_metadata():
+    df = read_datapackage(os.path.join(path, "test-package"), "data")
+    assert df._metadata["format"] == "csv"
