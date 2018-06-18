@@ -31,6 +31,11 @@ class PyTest(TestCommand):
         sys.exit(pytest.main(self.test_args))
 
 
+with open(os.path.join(path, 'README.md'), "r") as f:
+    readme = f.read()
+
+
+
 cmdclass = versioneer.get_cmdclass()
 cmdclass.update({"test": PyTest})
 
@@ -38,7 +43,8 @@ setup(
     name='pandas-datapackage-reader',
     version=versioneer.get_version(),
     description='Pandas Data Package Reader',
-    long_description=__doc__,
+    long_description=readme,
+    long_description_content_type="test/markdown"
     url='https://github.com/rgieseke/pandas-datapackage-reader',
     author='Robert Gieseke',
     author_email='robert.gieseke@pik-potsdam.de',
