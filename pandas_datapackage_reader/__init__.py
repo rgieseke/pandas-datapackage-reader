@@ -88,15 +88,15 @@ def read_datapackage(url_or_path, resource_name=None):
 
         int_columns = []
 
-        csv_path = url_or_path.replace("datapackage.json", resource["path"])
-        if not csv_path.endswith(".csv"):
+        resource_path = url_or_path.replace("datapackage.json", resource["path"])
+        if not resource_path.endswith(".csv"):
             continue
 
         if "primaryKey" in resource["schema"]:
             index_col = resource["schema"]["primaryKey"]
 
         df = pd.read_csv(
-            csv_path,
+            resource_path,
             index_col=index_col,
             na_filter=True,
             na_values="",
