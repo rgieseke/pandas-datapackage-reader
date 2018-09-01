@@ -78,7 +78,7 @@
         {
             "name": "datetimes",
             "path": "datetimes.csv",
-            "fomat": "csv",
+            "format": "csv",
             "schema": {
                 "fields": [
                     {
