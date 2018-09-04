@@ -31,6 +31,7 @@ def test_load_multiple_resources():
     assert "moredata" in dp.keys()
 
 
+@pytest.mark.slow
 def test_remote_package():
     url = ("https://github.com/rgieseke/pandas-datapackage-reader/"
            "raw/master/tests/test-package/datapackage.json")
@@ -46,12 +47,13 @@ def test_not_existing_remote_package():
         dp = read_datapackage("http://www.example.com")
 
 
+@pytest.mark.slow
 def test_github_url():
     url = "https://github.com/datasets/country-codes"
     dp = read_datapackage(url)
     assert isinstance(dp, pd.DataFrame)
 
-
+@pytest.mark.slow
 def test_github_url_with_trailing_slash():
     url = "https://github.com/datasets/country-codes/"
     dp = read_datapackage(url)
