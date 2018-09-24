@@ -21,6 +21,8 @@ country_codes = read_datapackage("https://github.com/datasets/country-codes")
 # From local directory
 country_codes = read_datapackage("country-codes")
 
+# Data Package with GeoJSON
+geo_countries = read_datapackage("https://github.com/datasets/geo-countries")
 ```
 
 Resource metadata from the Data Package is returned as a dictionary in the
