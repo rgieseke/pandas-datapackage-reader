@@ -89,19 +89,29 @@ def read_datapackage(url_or_path, resource_name=None):
         int_columns = []
 
         resource_path = url_or_path.replace("datapackage.json", resource["path"])
-        if not resource_path.endswith(".csv"):
+
+        if "format" in resource.keys():
+            format = resource["format"]
+        else:
+            format = resource_path.rsplit(".", 1)[-1]
+
+        if format == "csv":
+
+            if "primaryKey" in resource["schema"]:
+                index_col = resource["schema"]["primaryKey"]
+
+            df = pd.read_csv(
+                resource_path,
+                index_col=index_col,
+                na_filter=True,
+                na_values="",
+                keep_default_na=False
+            )
+        elif format == "geojson":
+            import geopandas
+            df = geopandas.read_file(resource_path)
+        else:
             continue
-
-        if "primaryKey" in resource["schema"]:
-            index_col = resource["schema"]["primaryKey"]
-
-        df = pd.read_csv(
-            resource_path,
-            index_col=index_col,
-            na_filter=True,
-            na_values="",
-            keep_default_na=False
-        )
 
         # Add resource description as a `_metadata` attribute. This won't
         # survive methods returning new DataFrames but can be useful.

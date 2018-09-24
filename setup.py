@@ -67,6 +67,6 @@ setup(
     cmdclass=cmdclass,
     packages=['pandas_datapackage_reader'],
     install_requires=['pandas', 'requests'],
-    tests_require=['pytest'],
+    tests_require=['pytest', "geopandas"],
     setup_requires=['pytest-runner']
 )

@@ -102,3 +102,9 @@ def test_datetimes():
 def test_metadata():
     df = read_datapackage(os.path.join(path, "test-package"), "data")
     assert df._metadata["format"] == "csv"
+
+
+def test_geojson():
+    df = read_datapackage(os.path.join(path, "test-package"), "admin1-us")
+    assert df._metadata["format"] == "geojson"
+    assert "geometry" in df.columns

@@ -108,6 +108,36 @@
                     }
                 ]
             }
+        },
+        {
+          "name": "admin1-us",
+          "path": "admin1-us.geojson",
+          "format": "geojson",
+          "mediatype": "application/json",
+          "schema": {
+            "fields": [
+              {
+             "name": "name",
+             "description": "Common name of the zone",
+             "type": "string"
+              },
+              {
+             "name": "id",
+             "description": "Code for the zone inside the country",
+             "type": "string"
+              },
+              {
+             "name": "country",
+             "description": "Name of the country",
+             "type": "string"
+              },
+              {
+             "name": "ISO3166-1-Alpha-3",
+             "description": "3 characters code for the country, according to ISO3166 standard",
+             "type": "string"
+              }
+            ]
+          }
         }
     ]
 }
