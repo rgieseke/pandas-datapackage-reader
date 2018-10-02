@@ -106,7 +106,8 @@
                         "type": "date",
                         "format": "%d.%m.%Y"
                     }
-                ]
+                ],
+            "primaryKey": "year"
             }
         },
         {

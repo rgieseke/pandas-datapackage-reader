@@ -90,13 +90,13 @@ def test_missing_integer_values_with_index():
 def test_datetimes():
     # Default test date/time '2017-01-01 01:23:45'
     df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
-    assert df["date"].loc[0] == date(2017, 1, 1)
-    assert df["datetime"].loc[0] == datetime(2017, 1, 1, 1, 23, 45)
-    assert df["time"].loc[0] == time(1, 23, 45)
-    assert df["year"].loc[0] == pd.Period("2017")
-    assert df["yearmonth"].loc[0] == pd.Period("2017-01")
-    assert df["yearmonth"].loc[0] == pd.Period("2017-01")
-    assert df["dayfirstdate"].loc[0] == date(2017, 12, 13)
+    assert df["date"].iloc[0] == date(2017, 1, 1)
+    assert df["datetime"].iloc[0] == datetime(2017, 1, 1, 1, 23, 45)
+    assert df["time"].iloc[0] == time(1, 23, 45)
+    assert df.reset_index()["year"].iloc[0] == pd.Period("2017")
+    assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
+    assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
+    assert df["dayfirstdate"].iloc[0] == date(2017, 12, 13)
 
 
 def test_metadata():
@@ -108,3 +108,8 @@ def test_geojson():
     df = read_datapackage(os.path.join(path, "test-package"), "admin1-us")
     assert df._metadata["format"] == "geojson"
     assert "geometry" in df.columns
+
+
+def test_datetime_in_index():
+    df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
+    assert df.index.dtype == "period[A-DEC]"

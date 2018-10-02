@@ -95,14 +95,13 @@ def read_datapackage(url_or_path, resource_name=None):
         else:
             format = resource_path.rsplit(".", 1)[-1]
 
-        if format == "csv":
+        if "primaryKey" in resource["schema"]:
+            index_col = resource["schema"]["primaryKey"]
 
-            if "primaryKey" in resource["schema"]:
-                index_col = resource["schema"]["primaryKey"]
+        if format == "csv":
 
             df = pd.read_csv(
                 resource_path,
-                index_col=index_col,
                 na_filter=True,
                 na_values="",
                 keep_default_na=False
@@ -112,10 +111,6 @@ def read_datapackage(url_or_path, resource_name=None):
             df = geopandas.read_file(resource_path)
         else:
             continue
-
-        # Add resource description as a `_metadata` attribute. This won't
-        # survive methods returning new DataFrames but can be useful.
-        df._metadata = resource
 
         for column in resource["schema"]["fields"]:
             format = column.get("format", None)
@@ -137,10 +132,18 @@ def read_datapackage(url_or_path, resource_name=None):
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format="%Y-%m").dt.to_period('M')
 
+        # Set index column
+        if index_col:
+            df = df.set_index(index_col)
+
         # Convert integer columns with missing values to type 'object'
         for int_col in int_columns:
             if int_col in df.columns and df[int_col].isnull().sum() > 0:
                 df[int_col] = df[int_col].astype(object)
+
+        # Add resource description as a `_metadata` attribute. This won't
+        # survive methods returning new DataFrames but can be useful.
+        df._metadata = resource
 
         data_frames[name] = df
 
