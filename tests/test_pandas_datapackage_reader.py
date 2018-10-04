@@ -93,7 +93,7 @@ def test_datetimes():
     assert df["date"].iloc[0] == date(2017, 1, 1)
     assert df["datetime"].iloc[0] == datetime(2017, 1, 1, 1, 23, 45)
     assert df["time"].iloc[0] == time(1, 23, 45)
-    assert df.reset_index()["year"].iloc[0] == pd.Period("2017")
+    assert df.reset_index()["year"].iloc[0] == 2017
     assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
     assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
     assert df["dayfirstdate"].iloc[0] == date(2017, 12, 13)
@@ -108,8 +108,3 @@ def test_geojson():
     df = read_datapackage(os.path.join(path, "test-package"), "admin1-us")
     assert df._metadata["format"] == "geojson"
     assert "geometry" in df.columns
-
-
-def test_datetime_in_index():
-    df = read_datapackage(os.path.join(path, "test-package"), "datetimes")
-    assert df.index.dtype == "period[A-DEC]"
