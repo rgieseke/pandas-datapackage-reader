@@ -43,7 +43,7 @@ def read_datapackage(url_or_path, resource_name=None):
     -------
     data_frames : DataFrame or Dict of DataFrames
         DataFrame(s) of the passed in Data Package. See notes in resource_name
-        argument for more information on when a Dict of Dataframes is returned.
+        argument for more information on when a Dict of DataFrames is returned.
 
     """
     url_or_path = str(url_or_path)  # Allows using PosixPath
