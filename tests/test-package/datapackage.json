@@ -111,6 +111,11 @@
             }
         },
         {
+          "name": "json-only",
+          "format": "json",
+          "path": "only.json"
+        },
+        {
           "name": "admin1-us",
           "path": "admin1-us.geojson",
           "format": "geojson",

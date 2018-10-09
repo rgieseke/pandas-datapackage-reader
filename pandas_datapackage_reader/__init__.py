@@ -95,9 +95,6 @@ def read_datapackage(url_or_path, resource_name=None):
         else:
             format = resource_path.rsplit(".", 1)[-1]
 
-        if "primaryKey" in resource["schema"]:
-            index_col = resource["schema"]["primaryKey"]
-
         if format == "csv":
 
             df = pd.read_csv(
@@ -111,6 +108,9 @@ def read_datapackage(url_or_path, resource_name=None):
             df = geopandas.read_file(resource_path)
         else:
             continue
+
+        if "primaryKey" in resource["schema"]:
+            index_col = resource["schema"]["primaryKey"]
 
         for column in resource["schema"]["fields"]:
             format = column.get("format", None)

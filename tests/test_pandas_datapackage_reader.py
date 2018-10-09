@@ -108,3 +108,8 @@ def test_geojson():
     df = read_datapackage(os.path.join(path, "test-package"), "admin1-us")
     assert df._metadata["format"] == "geojson"
     assert "geometry" in df.columns
+
+
+def test_unsupported_format():
+    dp = read_datapackage(os.path.join(path, "test-package"))
+    assert "json-only" not in dp.keys()
