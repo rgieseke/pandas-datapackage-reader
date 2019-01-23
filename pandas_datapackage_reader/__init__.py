@@ -86,8 +86,6 @@ def read_datapackage(url_or_path, resource_name=None):
 
         index_col = None
 
-        int_columns = []
-
         resource_path = url_or_path.replace("datapackage.json", resource["path"])
 
         if "format" in resource.keys():
@@ -95,13 +93,22 @@ def read_datapackage(url_or_path, resource_name=None):
         else:
             format = resource_path.rsplit(".", 1)[-1]
 
-        if format == "csv":
+        dtypes = {}
+        if ("schema" in resource) and ("fields" in resource["schema"]):
+            for column in resource["schema"]["fields"]:
+                col_type = column.get("type", None)
+                if col_type == "number":
+                    dtypes[column["name"]] = "float64"
+                elif col_type == "integer":
+                    dtypes[column["name"]] = "Int64"
 
+        if format == "csv":
             df = pd.read_csv(
                 resource_path,
                 na_filter=True,
                 na_values="",
-                keep_default_na=False
+                keep_default_na=False,
+                dtype=dtypes
             )
         elif format == "geojson":
             import geopandas
@@ -112,11 +119,10 @@ def read_datapackage(url_or_path, resource_name=None):
         if "primaryKey" in resource["schema"]:
             index_col = resource["schema"]["primaryKey"]
 
+        # Process dates.
         for column in resource["schema"]["fields"]:
             format = column.get("format", None)
-            if column["type"] == "integer":
-                int_columns.append(column["name"])
-            elif column["type"] == "date":
+            if column["type"] == "date":
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format=format).dt.date
             elif column["type"] == "datetime":
@@ -126,7 +132,7 @@ def read_datapackage(url_or_path, resource_name=None):
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format=format).dt.time
             elif column["type"] == "year":
-                int_columns.append(column["name"])
+                df[column["name"]] = df[column["name"]].astype(int)
             elif column["type"] == "yearmonth":
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format="%Y-%m").dt.to_period('M')
@@ -134,11 +140,6 @@ def read_datapackage(url_or_path, resource_name=None):
         # Set index column
         if index_col:
             df = df.set_index(index_col)
-
-        # Convert integer columns with missing values to type 'object'
-        for int_col in int_columns:
-            if int_col in df.columns and df[int_col].isnull().sum() > 0:
-                df[int_col] = df[int_col].astype(object)
 
         # Add resource description as a `_metadata` attribute. This won't
         # survive methods returning new DataFrames but can be useful.

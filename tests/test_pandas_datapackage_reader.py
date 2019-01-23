@@ -78,13 +78,13 @@ def test_missing_integer_values():
         "datawithoutindex"
     )
     assert pd.isnull(df_wo_index.iloc[1].intvalue)
-    assert df_wo_index["intvalue"].dtype == pd.np.dtype("O")
+    assert df_wo_index["intvalue"].dtype == pd.Int64Dtype()
 
 
 def test_missing_integer_values_with_index():
     df = read_datapackage(os.path.join(path, "test-package"), "datawithindex")
-    assert pd.isnull(df.loc[2].intvalue)
-    assert df["intvalue"].dtype == pd.np.dtype("O")
+    assert pd.isnull(df.loc[2])
+    assert df["intvalue"].dtype == pd.Int64Dtype()
 
 
 def test_datetimes():
