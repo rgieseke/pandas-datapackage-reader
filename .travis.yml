@@ -1,7 +1,11 @@
 language: python
 python:
   - "3.6"
-  - "3.7"
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 before_install:
   - pip install pip --upgrade
   - pip install 'pytest>=4.1' pytest-cov geopandas
