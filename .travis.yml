@@ -3,6 +3,7 @@ python:
   - "3.6"
   - "3.7"
 before_install:
+  - pip install pip --upgrade
   - pip install pytest pytest-cov geopandas
   - pip install codecov
 install:
