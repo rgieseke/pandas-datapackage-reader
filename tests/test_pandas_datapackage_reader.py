@@ -25,16 +25,17 @@ def test_load_single_resource():
 
 
 def test_load_multiple_resources():
-    dp = read_datapackage(os.path.join(path, "test-package"),
-                          ["data", "moredata"])
+    dp = read_datapackage(os.path.join(path, "test-package"), ["data", "moredata"])
     assert "data" in dp.keys()
     assert "moredata" in dp.keys()
 
 
 @pytest.mark.slow
 def test_remote_package():
-    url = ("https://github.com/rgieseke/pandas-datapackage-reader/"
-           "raw/master/tests/test-package/datapackage.json")
+    url = (
+        "https://github.com/rgieseke/pandas-datapackage-reader/"
+        "raw/master/tests/test-package/datapackage.json"
+    )
     dp = read_datapackage(url)
     assert isinstance(dp, dict)
     assert "moredata" in dp.keys()
@@ -53,15 +54,18 @@ def test_github_url():
     dp = read_datapackage(url)
     assert isinstance(dp, pd.DataFrame)
 
+
 @pytest.mark.slow
 def test_github_url_with_trailing_slash():
     url = "https://github.com/datasets/country-codes/"
     dp = read_datapackage(url)
     assert isinstance(dp, pd.DataFrame)
 
+
 @pytest.mark.skipif(sys.version_info < (3, 4), reason="requires pathlib")
 def test_pathlib_posixpath():
     from pathlib import Path
+
     path = Path(__file__).parents[0]
     dp = read_datapackage(path / "test-package")
     assert "data" in dp.keys()
@@ -74,8 +78,7 @@ def test_ignore_missing_values():
 
 def test_missing_integer_values():
     df_wo_index = read_datapackage(
-        os.path.join(path, "test-package"),
-        "datawithoutindex"
+        os.path.join(path, "test-package"), "datawithoutindex"
     )
     assert pd.isnull(df_wo_index.iloc[1].intvalue)
     assert df_wo_index["intvalue"].dtype == pd.Int64Dtype()

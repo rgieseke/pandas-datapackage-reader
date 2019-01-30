@@ -24,7 +24,6 @@ path = os.path.abspath(os.path.dirname(__file__))
 
 
 class PyTest(TestCommand):
-
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
@@ -32,39 +31,39 @@ class PyTest(TestCommand):
 
     def run_tests(self):
         import pytest
+
         sys.exit(pytest.main(self.test_args))
 
 
-with open(os.path.join(path, 'README.md'), "r") as f:
+with open(os.path.join(path, "README.md"), "r") as f:
     readme = f.read()
-
 
 
 cmdclass = versioneer.get_cmdclass()
 cmdclass.update({"test": PyTest})
 
 setup(
-    name='pandas-datapackage-reader',
+    name="pandas-datapackage-reader",
     version=versioneer.get_version(),
-    description='Pandas Data Package Reader',
+    description="Pandas Data Package Reader",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url='https://github.com/rgieseke/pandas-datapackage-reader',
-    author='Robert Gieseke',
-    author_email='robert.gieseke@pik-potsdam.de',
-    license='BSD',
-    platforms='any',
+    url="https://github.com/rgieseke/pandas-datapackage-reader",
+    author="Robert Gieseke",
+    author_email="robert.gieseke@pik-potsdam.de",
+    license="BSD",
+    platforms="any",
     classifiers=[
-        'Development Status :: 4 - Beta',
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
-    keywords=['data-package'],
+    keywords=["data-package"],
     cmdclass=cmdclass,
-    packages=['pandas_datapackage_reader'],
-    install_requires=['pandas>=0.24.0', 'requests'],
-    tests_require=['pytest', "geopandas"],
-    setup_requires=['pytest-runner']
+    packages=["pandas_datapackage_reader"],
+    install_requires=["pandas>=0.24.0", "requests"],
+    tests_require=["pytest", "geopandas"],
+    setup_requires=["pytest-runner"],
 )

@@ -17,7 +17,8 @@ import requests
 import pandas as pd
 
 from ._version import get_versions
-__version__ = get_versions()['version']
+
+__version__ = get_versions()["version"]
 del get_versions
 
 
@@ -47,14 +48,17 @@ def read_datapackage(url_or_path, resource_name=None):
 
     """
     url_or_path = str(url_or_path)  # Allows using PosixPath
-    if (url_or_path.startswith("https://github.com/") and not
-            url_or_path.endswith("/datapackage.json")):
+    if url_or_path.startswith("https://github.com/") and not url_or_path.endswith(
+        "/datapackage.json"
+    ):
         username_project = url_or_path.split("https://github.com/")[1]
         if username_project.endswith("/"):
             username_project = username_project[:-1]
-        url_or_path = "https://raw.githubusercontent.com/" + \
-                      username_project + \
-                      "/master/datapackage.json"
+        url_or_path = (
+            "https://raw.githubusercontent.com/"
+            + username_project
+            + "/master/datapackage.json"
+        )
     elif not url_or_path.endswith("datapackage.json"):
         url_or_path = os.path.join(url_or_path, "datapackage.json")
 
@@ -73,8 +77,9 @@ def read_datapackage(url_or_path, resource_name=None):
 
     resources = [resource for resource in metadata["resources"]]
     if resource_name is not None:
-        resources = [resource for resource in resources
-                     if resource["name"] in resource_name]
+        resources = [
+            resource for resource in resources if resource["name"] in resource_name
+        ]
 
     data_frames = {}
 
@@ -108,10 +113,11 @@ def read_datapackage(url_or_path, resource_name=None):
                 na_filter=True,
                 na_values="",
                 keep_default_na=False,
-                dtype=dtypes
+                dtype=dtypes,
             )
         elif format == "geojson":
             import geopandas
+
             df = geopandas.read_file(resource_path)
         else:
             continue
@@ -124,18 +130,20 @@ def read_datapackage(url_or_path, resource_name=None):
             format = column.get("format", None)
             if column["type"] == "date":
                 df[column["name"]] = pd.to_datetime(
-                    df[column["name"]], format=format).dt.date
+                    df[column["name"]], format=format
+                ).dt.date
             elif column["type"] == "datetime":
-                df[column["name"]] = pd.to_datetime(
-                    df[column["name"]], format=format)
+                df[column["name"]] = pd.to_datetime(df[column["name"]], format=format)
             elif column["type"] == "time":
                 df[column["name"]] = pd.to_datetime(
-                    df[column["name"]], format=format).dt.time
+                    df[column["name"]], format=format
+                ).dt.time
             elif column["type"] == "year":
                 df[column["name"]] = df[column["name"]].astype(int)
             elif column["type"] == "yearmonth":
                 df[column["name"]] = pd.to_datetime(
-                    df[column["name"]], format="%Y-%m").dt.to_period('M')
+                    df[column["name"]], format="%Y-%m"
+                ).dt.to_period("M")
 
         # Set index column
         if index_col:
