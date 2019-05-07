@@ -35,11 +35,6 @@ def read_datapackage(url_or_path, resource_name=None):
         Name or names of resources to read. Lists of strings are used to
         request multiple resources.
 
-    Notes:
-    ------
-    Columns of type "integer" with missing values are converted to "object" as
-    integer columns in Pandas do not support missing values.
-
     Returns
     -------
     data_frames : DataFrame or Dict of DataFrames
