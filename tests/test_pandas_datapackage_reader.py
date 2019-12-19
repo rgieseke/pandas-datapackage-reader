@@ -86,7 +86,7 @@ def test_missing_integer_values():
 
 def test_missing_integer_values_with_index():
     df = read_datapackage(os.path.join(path, "test-package"), "datawithindex")
-    assert pd.isnull(df.loc[2])
+    assert pd.isnull(df.loc[2].intvalue)
     assert df["intvalue"].dtype == pd.Int64Dtype()
 
 
