@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import numpy as np
 import pytest
 import requests
 import sys
@@ -100,6 +101,10 @@ def test_datetimes():
     assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
     assert df["yearmonth"].iloc[0] == pd.Period("2017-01")
     assert df["dayfirstdate"].iloc[0] == date(2017, 12, 13)
+
+def test_strings():
+    df = read_datapackage(os.path.join(path, "test-package"), "datawithstringnumbers")
+    assert df["intvalue"].dtype == np.dtype(object)
 
 
 def test_metadata():
