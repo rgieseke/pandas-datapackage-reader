@@ -101,6 +101,8 @@ def read_datapackage(url_or_path, resource_name=None):
                     dtypes[column["name"]] = "float64"
                 elif col_type == "integer":
                     dtypes[column["name"]] = "Int64"
+                elif col_type == "string":
+                    dtypes[column["name"]] = "object"
 
         if format == "csv":
             df = pd.read_csv(

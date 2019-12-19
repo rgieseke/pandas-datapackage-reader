@@ -59,6 +59,24 @@
             }
         },
         {
+            "name": "datawithstringnumbers",
+            "path": "datawithints.csv",
+            "format": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "intid",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "intvalue",
+                        "type": "string"
+                    }
+                ],
+                "primaryKey": "intid"
+            }
+        },
+        {
             "name": "moredata",
             "path": "moredata.csv",
             "format": "csv",
