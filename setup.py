@@ -43,7 +43,7 @@ cmdclass = versioneer.get_cmdclass()
 cmdclass.update({"test": PyTest})
 
 REQUIREMENTS = ["pandas>=0.24.0", "requests"]
-REQUIREMENTS_EXTRAS = {"tests": ["pytest>=4.1", "geopandas"]}
+REQUIREMENTS_EXTRAS = {"tests": ["codecov", "pytest-cov", "pytest>=4.1", "geopandas"]}
 
 setup(
     name="pandas-datapackage-reader",
