@@ -8,10 +8,9 @@ matrix:
       sudo: true
 before_install:
   - pip install pip --upgrade
-  - pip install 'pytest>=4.1' pytest-cov geopandas
   - pip install codecov
 install:
-  - pip install .
+  - pip install -e .[tests]
 script: pytest --cov
 after_success:
   - codecov
