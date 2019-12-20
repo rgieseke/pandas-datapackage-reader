@@ -42,6 +42,9 @@ with open(os.path.join(path, "README.md"), "r") as f:
 cmdclass = versioneer.get_cmdclass()
 cmdclass.update({"test": PyTest})
 
+REQUIREMENTS = ["pandas>=0.24.0", "requests"]
+REQUIREMENTS_EXTRAS = {"tests": ["pytest>=4.1", "geopandas"]}
+
 setup(
     name="pandas-datapackage-reader",
     version=versioneer.get_version(),
@@ -63,7 +66,6 @@ setup(
     keywords=["data-package"],
     cmdclass=cmdclass,
     packages=["pandas_datapackage_reader"],
-    install_requires=["pandas>=0.24.0", "requests"],
-    tests_require=["pytest", "geopandas"],
-    setup_requires=["pytest-runner"],
+    install_requires=REQUIREMENTS,
+    extras_require=REQUIREMENTS_EXTRAS,
 )
