@@ -103,8 +103,8 @@ def test_datetimes():
     assert df["dayfirstdate"].iloc[0] == date(2017, 12, 13)
 
 def test_strings():
-    df = read_datapackage(os.path.join(path, "test-package"), "datawithstringnumbers")
-    assert df["intvalue"].dtype == np.dtype(object)
+    df = read_datapackage(os.path.join(path, "test-package"), "datawithmixedtypes")
+    assert df["zipcode"].dtype == np.dtype(object)
 
 
 def test_metadata():
