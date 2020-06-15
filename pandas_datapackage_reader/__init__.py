@@ -144,7 +144,10 @@ def read_datapackage(url_or_path, resource_name=None):
 
         # Set index column
         if index_col:
-            df = df.set_index(index_col)
+            try:
+                df = df.set_index(index_col)
+            except KeyError:
+                raise KeyError("Error dealing with {}".format(name))
 
         # Add resource description as a `_metadata` attribute. This won't
         # survive methods returning new DataFrames but can be useful.
