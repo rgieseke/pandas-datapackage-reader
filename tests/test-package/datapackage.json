@@ -4,6 +4,7 @@
         {
             "name": "data",
             "path": "data.csv",
+            "missingValues": ["NA"],
             "format": "csv",
             "schema": {
                 "fields": [

@@ -93,6 +93,11 @@ def read_datapackage(url_or_path, resource_name=None):
         else:
             format = resource_path.rsplit(".", 1)[-1]
 
+        if "missingValues" in resource.keys():
+            missing_values = resource["missingValues"]
+        else:
+            missing_values = ['']
+
         dtypes = {}
         if ("schema" in resource) and ("fields" in resource["schema"]):
             for column in resource["schema"]["fields"]:
@@ -108,7 +113,7 @@ def read_datapackage(url_or_path, resource_name=None):
             df = pd.read_csv(
                 resource_path,
                 na_filter=True,
-                na_values="",
+                na_values=missing_values,
                 keep_default_na=False,
                 dtype=dtypes,
             )
