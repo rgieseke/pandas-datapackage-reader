@@ -72,9 +72,14 @@ def test_pathlib_posixpath():
     assert "data" in dp.keys()
 
 
-def test_ignore_missing_values():
+def test_ignore_default_missing_values():
+    df = read_datapackage(os.path.join(path, "test-package"), "datawithoutindex")
+    assert pd.isna(df.iloc[1, 1])
+
+
+def test_ignore_custom_missing_values():
     df = read_datapackage(os.path.join(path, "test-package"), "data")
-    assert df.loc["c"].value == "NA"
+    assert pd.isna(df.loc["c"].value)
 
 
 def test_missing_integer_values():
