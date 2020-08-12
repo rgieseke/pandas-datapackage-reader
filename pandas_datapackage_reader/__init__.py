@@ -99,15 +99,21 @@ def read_datapackage(url_or_path, resource_name=None):
             missing_values = ['']
 
         dtypes = {}
-        if ("schema" in resource) and ("fields" in resource["schema"]):
-            for column in resource["schema"]["fields"]:
-                col_type = column.get("type", None)
-                if col_type == "number":
-                    dtypes[column["name"]] = "float64"
-                elif col_type == "integer":
-                    dtypes[column["name"]] = "Int64"
-                elif col_type == "string":
-                    dtypes[column["name"]] = "object"
+        if "schema" in resource:
+            if "missingValues" in resource["schema"]:
+                missing_values = resource["schema"]["missingValues"]
+            else:
+                missing_values = ['']
+
+            if "fields" in resource["schema"]:
+                for column in resource["schema"]["fields"]:
+                    col_type = column.get("type", None)
+                    if col_type == "number":
+                        dtypes[column["name"]] = "float64"
+                    elif col_type == "integer":
+                        dtypes[column["name"]] = "Int64"
+                    elif col_type == "string":
+                        dtypes[column["name"]] = "object"
 
         if format == "csv":
             df = pd.read_csv(
