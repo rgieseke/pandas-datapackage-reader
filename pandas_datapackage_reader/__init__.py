@@ -93,11 +93,6 @@ def read_datapackage(url_or_path, resource_name=None):
         else:
             format = resource_path.rsplit(".", 1)[-1]
 
-        if "missingValues" in resource.keys():
-            missing_values = resource["missingValues"]
-        else:
-            missing_values = ['']
-
         dtypes = {}
         if "schema" in resource:
             if "missingValues" in resource["schema"]:
