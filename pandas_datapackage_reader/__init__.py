@@ -95,10 +95,12 @@ def read_datapackage(url_or_path, resource_name=None):
 
         dtypes = {}
         if "schema" in resource:
-            if "missingValues" in resource["schema"]:
-                missing_values = resource["schema"]["missingValues"]
-            else:
-                missing_values = ['']
+            # Get missing values representations if defined
+            missing_values = resource["schema"].get("missingValues", [''])
+
+            # Get decimal character and thousands separator if they are defined
+            decimal_char = resource["schema"].get("decimalChar", '.')
+            thousands_sep = resource["schema"].get("groupChar", None)
 
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
@@ -117,6 +119,8 @@ def read_datapackage(url_or_path, resource_name=None):
                 na_values=missing_values,
                 keep_default_na=False,
                 dtype=dtypes,
+                thousands=thousands_sep,
+                decimal=decimal_char,
             )
         elif format == "geojson":
             import geopandas

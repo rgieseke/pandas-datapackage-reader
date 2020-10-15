@@ -126,3 +126,13 @@ def test_geojson():
 def test_unsupported_format():
     dp = read_datapackage(os.path.join(path, "test-package"))
     assert "json-only" not in dp.keys()
+
+
+def test_decimal_char():
+    df = read_datapackage(os.path.join(path, "test-package"), "europeandata")
+    assert df['value'].dtype == float
+
+
+def test_group_char():
+    df = read_datapackage(os.path.join(path, "test-package"), "datawiththousands")
+    assert df['value'].dtype == float

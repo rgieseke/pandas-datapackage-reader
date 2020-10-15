@@ -130,6 +130,44 @@
             }
         },
         {
+            "name": "europeandata",
+            "path": "europeandata.csv",
+            "format": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "id",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "value",
+                        "type": "number"
+                    }
+                ],
+                "primaryKey": "id",
+                "decimalChar": ","
+            }
+        },
+        {
+            "name": "datawiththousands",
+            "path": "datawiththousands.csv",
+            "format": "csv",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "id",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "value",
+                        "type": "number"
+                    }
+                ],
+                "primaryKey": "id",
+                "groupChar": ","
+            }
+        },
+        {
           "name": "json-only",
           "format": "json",
           "path": "only.json"
