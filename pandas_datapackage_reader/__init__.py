@@ -101,6 +101,9 @@ def read_datapackage(url_or_path, resource_name=None):
             # Get decimal character if they are defined
             decimal_char = resource["schema"].get("decimalChar", '.')
 
+            # Get encoding
+            encoding = resource.get("encoding", None)
+
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
                     col_type = column.get("type", None)
@@ -123,6 +126,7 @@ def read_datapackage(url_or_path, resource_name=None):
                 dtype=dtypes,
                 thousands=thousands_sep,
                 decimal=decimal_char,
+                encoding=encoding,
             )
         elif format == "geojson":
             import geopandas

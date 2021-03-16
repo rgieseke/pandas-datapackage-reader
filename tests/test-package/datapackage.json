@@ -220,6 +220,25 @@
               }
             ]
           }
+        },
+        {
+            "name": "data-8859-1",
+            "path": "data-8859-1.csv",
+            "format": "csv",
+            "encoding": "iso-8859-1",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "id",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "character",
+                        "type": "string"
+                    }
+                ],
+                "primaryKey": "id"
+            }
         }
     ]
 }
