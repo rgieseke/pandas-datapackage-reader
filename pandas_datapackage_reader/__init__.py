@@ -102,14 +102,13 @@ def read_datapackage(url_or_path, resource_name=None):
             decimal_char = resource["schema"].get("decimalChar", '.')
             thousands_sep = resource["schema"].get("groupChar", None)
 
-            # Get encoding
-            encoding = resource.get("encoding", 'utf8')
-
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
                     col_type = column.get("type", None)
                     if col_type == "number":
                         dtypes[column["name"]] = "float64"
+                        #Get thousands separator from field level, if defined
+                        thousands_sep = column.get("groupChar", thousands_sep)
                     elif col_type == "integer":
                         dtypes[column["name"]] = "Int64"
                     elif col_type == "string":
@@ -124,7 +123,6 @@ def read_datapackage(url_or_path, resource_name=None):
                 dtype=dtypes,
                 thousands=thousands_sep,
                 decimal=decimal_char,
-                encoding=encoding,
             )
         elif format == "geojson":
             import geopandas
