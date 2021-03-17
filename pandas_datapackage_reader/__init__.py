@@ -98,17 +98,17 @@ def read_datapackage(url_or_path, resource_name=None):
             # Get missing values representations if defined
             missing_values = resource["schema"].get("missingValues", [''])
 
-            # Get decimal character and thousands separator if they are defined
+            # Get decimal character if they are defined
             decimal_char = resource["schema"].get("decimalChar", '.')
-            thousands_sep = resource["schema"].get("groupChar", None)
 
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
                     col_type = column.get("type", None)
+                    # Get thousands separator from field level, if defined.
+                    # Note that this will be applied to all fields.
+                    thousands_sep = column.get("groupChar", None)
                     if col_type == "number":
                         dtypes[column["name"]] = "float64"
-                        #Get thousands separator from field level, if defined
-                        thousands_sep = column.get("groupChar", thousands_sep)
                     elif col_type == "integer":
                         dtypes[column["name"]] = "Int64"
                     elif col_type == "string":

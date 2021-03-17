@@ -137,6 +137,3 @@ def test_group_char():
     df = read_datapackage(os.path.join(path, "test-package"), "datawiththousands")
     assert df['value'].dtype == float
 
-def test_group_char2():
-    df = read_datapackage(os.path.join(path, "test-package"), "datawiththousands-fieldlevel")
-    assert df['value'].dtype == float
