@@ -102,7 +102,7 @@ def read_datapackage(url_or_path, resource_name=None):
             decimal_char = resource["schema"].get("decimalChar", '.')
 
             # Get encoding
-            encoding = resource.get("encoding", None)
+            encoding = resource.get("encoding", "utf-8")
 
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
