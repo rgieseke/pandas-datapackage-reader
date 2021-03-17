@@ -160,11 +160,11 @@
                     },
                     {
                         "name": "value",
-                        "type": "number"
+                        "type": "number",
+                        "groupChar": ","
                     }
                 ],
-                "primaryKey": "id",
-                "groupChar": ","
+                "primaryKey": "id"
             }
         },
         {
