@@ -16,21 +16,28 @@ import os
 import requests
 import pandas as pd
 
+import logging
+
+try:
+    import frictionless
+except ImportError:
+    logging.warning("Frictionless-py package missing: cannot import from datapackage object.")
+
 from ._version import get_versions
 
 __version__ = get_versions()["version"]
 del get_versions
 
 
-def read_datapackage(url_or_path, resource_name=None):
+def read_datapackage(dp, resource_name=None):
     """
     Read tabular CSV files from Data Packages into DataFrames.
 
     Parameters:
     -----------
-    path_or_url: string
+    dp: string, PathLike or DataPackage object
         Local path or URL of a Data Package. For GitHub URLs the repository can
-        be used.
+        be used. You can also use a frictionless.package.Package object.
     resource_name: string or list of strings
         Name or names of resources to read. Lists of strings are used to
         request multiple resources.
@@ -42,30 +49,36 @@ def read_datapackage(url_or_path, resource_name=None):
         argument for more information on when a Dict of DataFrames is returned.
 
     """
-    url_or_path = str(url_or_path)  # Allows using PosixPath
-    if url_or_path.startswith("https://github.com/") and not url_or_path.endswith(
-        "/datapackage.json"
-    ):
-        username_project = url_or_path.split("https://github.com/")[1]
-        if username_project.endswith("/"):
-            username_project = username_project[:-1]
-        url_or_path = (
-            "https://raw.githubusercontent.com/"
-            + username_project
-            + "/master/datapackage.json"
-        )
-    elif not url_or_path.endswith("datapackage.json"):
-        url_or_path = os.path.join(url_or_path, "datapackage.json")
+    if isinstance(dp, (str, os.PathLike)):
+        url_or_path = str(dp)  # Allows using PosixPath
+        if url_or_path.startswith("https://github.com/") and not url_or_path.endswith(
+            "/datapackage.json"
+        ):
+            username_project = url_or_path.split("https://github.com/")[1]
+            if username_project.endswith("/"):
+                username_project = username_project[:-1]
+            url_or_path = (
+                "https://raw.githubusercontent.com/"
+                + username_project
+                + "/master/datapackage.json"
+            )
+        elif not url_or_path.endswith("datapackage.json"):
+            url_or_path = os.path.join(url_or_path, "datapackage.json")
 
-    if url_or_path.startswith("http"):
-        r = requests.get(url_or_path)
-        if r.status_code == 200:
-            metadata = json.loads(r.text)
+        if url_or_path.startswith("http"):
+            r = requests.get(url_or_path)
+            if r.status_code == 200:
+                metadata = json.loads(r.text)
+            else:
+                r.raise_for_status()
         else:
-            r.raise_for_status()
+            with open(url_or_path, "r") as f:
+                metadata = json.load(f)
+    elif isinstance(dp, frictionless.package.Package):
+        url_or_path = "datapackage.json"
+        metadata = dp.to_dict()
     else:
-        with open(url_or_path, "r") as f:
-            metadata = json.load(f)
+        logging.error("Format not recognized. Parameter dp accepts string, PathLike or DataPackage object.")
 
     if type(resource_name) is str:
         resource_name = [resource_name]
