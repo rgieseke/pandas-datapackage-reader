@@ -1,5 +1,5 @@
 [![PyPI](https://img.shields.io/pypi/v/pandas-datapackage-reader.svg)](https://pypi.python.org/pypi/pandas-datapackage-reader/)
-[![CI](https://img.shields.io/github/actions/workflow/status/rgieseke/pandas-datapackage-reader/ci.yaml?label=actions&logo=github&logoColor=white)](https://github.com/rgieseke/pandas-datapackage-reader/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/rgieseke/pandas-datapackage-reader/ci.yml?branch=main&label=actions&logo=github&logoColor=white)](https://github.com/rgieseke/pandas-datapackage-reader/actions)
 
 # pandas-datapackage-reader
 
