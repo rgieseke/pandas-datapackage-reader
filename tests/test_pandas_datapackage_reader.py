@@ -35,7 +35,7 @@ def test_load_multiple_resources():
 def test_remote_package():
     url = (
         "https://github.com/rgieseke/pandas-datapackage-reader/"
-        "raw/master/tests/test-package/datapackage.json"
+        "raw/main/tests/test-package/datapackage.json"
     )
     dp = read_datapackage(url)
     assert isinstance(dp, dict)
